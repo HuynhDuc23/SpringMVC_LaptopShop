@@ -1,27 +1,34 @@
-package vn.com.demo.controller;
+package vn.com.demo.controller.admin;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import vn.com.demo.domain.User;
-import vn.com.demo.service.UserService;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import vn.com.demo.domain.Role;
+import vn.com.demo.domain.User;
+import vn.com.demo.service.UploadFileService;
+import vn.com.demo.service.UserService;
 
 @Controller
 public class UserController {
-  private UserService userService;
+  private final PasswordEncoder passwordEncoder;;
+  private final UploadFileService uploadFileService;
+  private final UserService userService;
 
   @Autowired
-  public UserController(UserService userService) {
+  public UserController(UserService userService, UploadFileService uploadFileService, PasswordEncoder passwordEncoder) {
     this.userService = userService;
+    this.uploadFileService = uploadFileService;
+    this.passwordEncoder = passwordEncoder;
   }
 
   @GetMapping("/list")
@@ -61,7 +68,15 @@ public class UserController {
   }
 
   @PostMapping("/createUser")
-  public String processCreateUser(Model model, @ModelAttribute("newUser") User user) {
+  public String processCreateUser(Model model, @ModelAttribute("newUser") User user,
+      @RequestParam("hoidanitFile") MultipartFile file) {
+    System.out.println("Create : " + user);
+    String avatar = this.uploadFileService.handleSaveUploadFile(file, "avatar");
+    String hashPassword = this.passwordEncoder.encode(user.getPassword());
+    user.setPassword(hashPassword);
+    user.setAvatar(avatar);
+    // set role
+    user.setRole(this.userService.getRoleByName(user.getRole().getName()));
     userService.createUser(user);
     return "redirect:/list";
   }

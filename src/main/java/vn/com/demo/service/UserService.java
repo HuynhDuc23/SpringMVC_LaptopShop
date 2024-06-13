@@ -5,16 +5,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import vn.com.demo.domain.Role;
 import vn.com.demo.domain.User;
+import vn.com.demo.repository.RoleRepository;
 import vn.com.demo.repository.UserRepository;
 
 @Service
 public class UserService {
-  public UserRepository userRepository;
+  private UserRepository userRepository;
+  private RoleRepository roleRepository;
 
-  @Autowired
-  public UserService(UserRepository userRepository) {
+  public UserService(UserRepository userRepository, RoleRepository roleRepository) {
     this.userRepository = userRepository;
+    this.roleRepository = roleRepository;
   }
 
   public User createUser(User user) {
@@ -42,6 +45,10 @@ public class UserService {
 
   public void deleteUserById(Long id) {
     this.userRepository.deleteById(id);
+  }
+
+  public Role getRoleByName(String name) {
+    return this.roleRepository.findByName(name);
   }
 
 }
