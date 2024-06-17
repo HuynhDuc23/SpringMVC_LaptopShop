@@ -39,7 +39,7 @@
                       <th>Id</th>
                       <th>Email</th>
                       <th>FullName</th>
-                      <th>Email</th>
+                      <th>Role</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -55,7 +55,7 @@
                         <td>
                           ${user.fullName} </td>
                         <td>
-                          ${user.phone} </td>
+                          ${user.role.name} </td>
                         <td>
                           <a href="/user-details/${user.id}" class="btn btn-success">Detail</a>
                           <a href="/update/${user.id}" class="btn btn-warning">Edit</a>

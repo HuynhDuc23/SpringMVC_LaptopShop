@@ -20,12 +20,16 @@ public class UploadFileService {
 
   public String handleSaveUploadFile(MultipartFile file, String targetFolder) {
     String finalName = "";
+    if (file.isEmpty()) {
+      return "";
+    }
     try {
       byte[] bytes;
       String pathResult = this.servletContext.getRealPath("");
       System.out.println(pathResult);
 
       bytes = file.getBytes();
+      System.out.println("reslut :" + this.servletContext);
       // Đường dẫn thư mục gốc nơi bạn muốn lưu trữ file
       String rootPath = this.servletContext.getRealPath("/resources/images");
       // D:\SpringMVC_LaptopShop\demo\demo\src\main\webapp\resources
@@ -33,11 +37,8 @@ public class UploadFileService {
       File dir = new File(rootPath + File.separator + targetFolder);
       if (!dir.exists())
         dir.mkdirs();
-      // Create the file on server
-      finalName = dir.getAbsolutePath() + File.separator +
-          +System.currentTimeMillis() + "-" + file.getOriginalFilename();
-
-      File serverFile = new File(finalName);
+      finalName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+      File serverFile = new File(dir.getAbsolutePath() + File.separator + finalName);
       // Ghi dữ liệu vào file
       BufferedOutputStream stream = new BufferedOutputStream(
           new FileOutputStream(serverFile));

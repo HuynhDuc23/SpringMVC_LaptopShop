@@ -51,12 +51,22 @@
                   <form:form method="post" action="/createUser" modelAttribute="newUser" enctype="multipart/form-data">
                     <div class="row">
                       <div class="col-md-6">
+                        <c:set var="errorEmail">
+                          <form:errors path="email" cssClass="invalid-feedback" />
+                        </c:set>
                         <label for="email" class="form-label">Email address</label>
-                        <form:input type="email" class="form-control" path="email" id="email" />
+                        <form:input type="email" class="form-control ${not empty errorEmail ? 'is-invalid':'' }"
+                          path="email" id="email" />
+                        ${errorEmail}
                       </div>
                       <div class="col-md-6">
+                        <c:set var="errorPassword">
+                          <form:errors path="password" cssClass="invalid-feedback" />
+                        </c:set>
                         <label for="password" class="form-label">Password</label>
-                        <form:input type="password" class="form-control" path="password" id="password" />
+                        <form:input type="password" class="form-control ${not empty errorPassword ? 'is-invalid':'' }"
+                          path="password" id="password" />
+                        ${errorPassword}
                       </div>
                     </div>
                     <div class="mb-3">

@@ -29,9 +29,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/"); // config search css and js
     registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
     registry.addResourceHandler("/images/**").addResourceLocations("/resources/images/");
-    // : /js/**: Đây là mẫu URL mà người dùng sẽ sử dụng để truy cập các tệp
-    // JavaScript
-    // khi người dùng gõ /js/.. thì nó sẽ vào resources/js để tìm file tương ứng
+    registry.addResourceHandler("/client/**").addResourceLocations("/resources/client/");
   }
 
 }

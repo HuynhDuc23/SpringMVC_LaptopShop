@@ -49,7 +49,7 @@
                       <div class="row">
                         <div class="col-md-6 col-12 mx-auto">
                           <div>
-                            <p style="color: red; padding: 10px; margin-left: 300px;">Update User</p>
+                            <p style="color: red; padding: 10px;">Update User</p>
                             <hr>
                           </div>
                           <form:form method="post" action="/update/${newUser.id}" modelAttribute="newUser">
