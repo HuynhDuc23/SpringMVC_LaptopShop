@@ -7,5 +7,7 @@ import vn.com.demo.domain.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+  public User findByFullName(String name);
 
+  public User findByEmail(String email);
 }

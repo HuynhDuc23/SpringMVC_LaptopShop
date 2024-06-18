@@ -10,9 +10,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -20,15 +17,15 @@ public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @Email(message = "Vui lòng nhập email chính xác")
+  // @Email(message = "Vui lòng nhập email chính xác")
   private String email;
-  @Size(min = 2, message = "Vui lòng nhập mật khẩu min = 2 and max = 20")
+  // @Size(min = 2, message = "Vui lòng nhập mật khẩu min = 2 and max = 20")
   private String password;
-  @NotNull(message = "Vui lòng nhập tên")
+  // @NotNull(message = "Vui lòng nhập tên")
   private String fullName;
-  @NotNull(message = "Vui lòng nhập địa chỉ ")
+  // @NotNull(message = "Vui lòng nhập địa chỉ ")
   private String address;
-  @NotNull(message = "Vui lòng nhập số điện thoại")
+  // @NotNull(message = "Vui lòng nhập số điện thoại")
   private String phone;
   private String avatar;
   @OneToMany(mappedBy = "user")

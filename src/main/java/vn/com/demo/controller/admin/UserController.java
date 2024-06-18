@@ -25,7 +25,6 @@ public class UserController {
   private final UploadFileService uploadFileService;
   private final UserService userService;
 
-  @Autowired
   public UserController(UserService userService, UploadFileService uploadFileService, PasswordEncoder passwordEncoder) {
     this.userService = userService;
     this.uploadFileService = uploadFileService;
