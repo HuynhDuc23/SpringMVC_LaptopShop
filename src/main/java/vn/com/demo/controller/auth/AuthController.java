@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import vn.com.demo.domain.User;
+import vn.com.demo.domain.dto.Login;
 import vn.com.demo.domain.dto.Register;
 import vn.com.demo.service.UserService;
-
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -29,9 +29,10 @@ public class AuthController {
     return "client/auth/register";
   }
 
-  @GetMapping("/auth/login")
+  @GetMapping("/login")
   public String login(Model model) {
-    User newUser = new User();
+    Login newUser = new Login();
+    // User newUser = new User();
     model.addAttribute("newUser", newUser);
     return "client/auth/login";
   }

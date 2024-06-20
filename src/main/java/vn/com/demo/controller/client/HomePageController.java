@@ -23,4 +23,9 @@ public class HomePageController {
     return "client/homepage/show";
   }
 
+  @GetMapping("access-denied")
+  public String accessDenied(Model model) {
+    return "client/homepage/deny";
+  }
+
 }
