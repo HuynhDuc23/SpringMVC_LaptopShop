@@ -32,7 +32,13 @@ public class AuthController {
   @GetMapping("/login")
   public String login(Model model) {
     Login newUser = new Login();
-    // User newUser = new User();
+    model.addAttribute("newUser", newUser);
+    return "client/auth/login";
+  }
+
+  @GetMapping("/logout")
+  public String logout(Model model) {
+    Login newUser = new Login();
     model.addAttribute("newUser", newUser);
     return "client/auth/login";
   }

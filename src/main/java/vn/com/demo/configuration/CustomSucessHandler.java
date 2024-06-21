@@ -37,6 +37,7 @@ public class CustomSucessHandler implements AuthenticationSuccessHandler {
 
   protected void clearAuthenticationAttributes(HttpServletRequest request) {
     HttpSession session = request.getSession(false);
+    // kiem tra season , chi su dung season khi co ma thoi , neu khong co thi thoi
     if (session == null) {
       return;
     }
@@ -49,6 +50,7 @@ public class CustomSucessHandler implements AuthenticationSuccessHandler {
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
       Authentication authentication) throws IOException, ServletException {
     String targetUrl = determineTargetUrl(authentication);
+    // authentication la đata cua nguoi dung luu trong spring security context
     if (response.isCommitted()) {
       return;
     }

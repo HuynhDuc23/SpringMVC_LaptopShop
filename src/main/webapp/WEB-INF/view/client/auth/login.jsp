@@ -1,6 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
-  <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
       <!DOCTYPE html>
       <html lang="en">
@@ -28,6 +28,12 @@
                         <h3 class="text-center font-weight-light my-4">Login</h3>
                       </div>
                       <div class="card-body">
+                        <c:if test="${param.error != null}">
+                          <div class="my-2" style="color: red;">Invalid email or password.</div>
+                        </c:if>
+                        <c:if test="${param.logout != null}">
+                          <div class="my-2" style="color: seagreen;">Logout Sucess.</div>
+                        </c:if>
                         <form:form action="/login" method="post" modelAttribute="newUser">
                           <div class="form-floating mb-3">
                             <form:input class="form-control" type="email" placeholder="name@example.com" name="username"
@@ -42,12 +48,7 @@
                           <div>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                           </div>
-                          <c:if test="${param.error != null}">
-                            <div class="my-2" style="color: red;">Invalid email or password.</div>
-                          </c:if>
-                          <c:if test="${param.logout != null}">
-                            <div class="my-2" style="color: seagreen;">Logout Sucess.</div>
-                          </c:if>
+
                           <div class="mt-4 mb-0">
                             <div class="d-grid">
                               <form:button class="btn btn-primary btn-block">
