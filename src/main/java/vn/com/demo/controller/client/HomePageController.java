@@ -3,6 +3,9 @@ package vn.com.demo.controller.client;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import vn.com.demo.domain.Product;
 import vn.com.demo.service.ProductService;
 import java.util.List;
@@ -20,6 +23,7 @@ public class HomePageController {
   public String getMethodName(Model model) {
     List<Product> products = this.productService.listProducts();
     model.addAttribute("products", products);
+
     return "client/homepage/show";
   }
 

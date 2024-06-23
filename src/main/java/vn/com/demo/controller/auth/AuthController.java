@@ -36,13 +36,6 @@ public class AuthController {
     return "client/auth/login";
   }
 
-  @GetMapping("/logout")
-  public String logout(Model model) {
-    Login newUser = new Login();
-    model.addAttribute("newUser", newUser);
-    return "client/auth/login";
-  }
-
   @PostMapping("/auth/register-account")
   public String registerAccount(@ModelAttribute("register") Register register, Model model) {
     if (register.getEmail() == null || register.getFirstName() == null || register.getPassword() == null

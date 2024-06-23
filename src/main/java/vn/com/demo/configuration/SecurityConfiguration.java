@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import jakarta.servlet.DispatcherType;
 import vn.com.demo.service.CustomerDetailsService;
@@ -54,13 +54,6 @@ public class SecurityConfiguration {
   }
 
   @Bean
-  public SpringSessionRememberMeServices rememberMeServices() {
-    SpringSessionRememberMeServices rememberMeServices = new SpringSessionRememberMeServices();
-    rememberMeServices.setAlwaysRemember(true);
-    return rememberMeServices;
-  }
-
-  @Bean
   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
         .authorizeHttpRequests(authorize -> authorize
@@ -73,22 +66,23 @@ public class SecurityConfiguration {
             .permitAll()
             .requestMatchers("/admin/**").hasRole("ADMIN")
             .anyRequest().authenticated())
-        .rememberMe(rememberMe -> rememberMe
-            .rememberMeServices(rememberMeServices()))
-        .formLogin(formLogin -> formLogin
-            .loginPage("/login")
-            .failureUrl("/login?error")
-            .successHandler(authenticationSuccessHandler())
-            .permitAll())
         .sessionManagement((sessionManagement) -> sessionManagement
             .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
             .invalidSessionUrl("/logout?expired")
             .maximumSessions(1)
             .maxSessionsPreventsLogin(false))
         .logout(
-            logout -> logout.logoutUrl("/logout")
-                .deleteCookies("SESSION").invalidateHttpSession(true)
+            (logout) -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login?logout")
+                .invalidateHttpSession(true) // Invalidate session
+                .deleteCookies("SESSION") // Delete cookie
                 .permitAll())
+
+        .formLogin(formLogin -> formLogin
+            .loginPage("/login")
+            .failureUrl("/login?error")
+            .successHandler(authenticationSuccessHandler())
+            .permitAll())
         .exceptionHandling(ex -> ex.accessDeniedPage("/access-denied"));
     ;
 
