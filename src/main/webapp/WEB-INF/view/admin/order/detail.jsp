@@ -2,7 +2,6 @@
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
       <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
         <!DOCTYPE html>
         <html lang="en">
 
@@ -10,8 +9,8 @@
           <meta charset="utf-8" />
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-          <meta name="description" content="Dev IT - Dự án laptopshop" />
-          <meta name="author" content="Dev IT" />
+          <meta name="description" content="Dự án laptopshop" />
+          <meta name="author" content=" IT" />
           <title>Dashboard - Dev IT</title>
           <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
           <link href="/css/styles.css" rel="stylesheet" />
@@ -32,48 +31,46 @@
             </div>
             <div id="layoutSidenav_content">
               <main>
+                <!-- table -->
                 <div class="container mt-5">
                   <table class="table table-bordered grocery-crud-table table-hover mt-3">
                     <thead>
                       <tr>
                         <th>Id</th>
-                        <th>TotalPrice</th>
-                        <th>User</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <c:forEach var="order" items="${listorder}">
+                      <c:forEach var="orderDetail" items="${orderDetails}">
                         <tr>
                           <td>
-                            ${order.id}
+                            ${orderDetail.id}
                           </td>
                           <td>
-                            <fmt:formatNumber type="number" value="${order.totalPrice}" /> <span>đ</span>
+                            <img src="/images/product/${orderDetail.product.image}" alt="error">
+                          </td>
+                          <td>
+                            ${orderDetail.product.name}
+                          </td>
+                          <td>
+                            ${orderDetail.quantity}
+                          </td>
+                          <td>
+                            <fmt:formatNumber type="number" value=" ${orderDetail.price}" /> <span>đ</span>
 
-                          </td>
-                          <td>
-                            ${order.user.fullName}
-                          </td>
-                          <td>
-                            ${order.status}
-                          </td>
-
-                          <td>
-                            <a href="/admin/order/detail/${order.id}" class="btn btn-success">Detail</a>
-                            <a href="/admin/order/update/${order.id}" class="btn btn-warning">Update</a>
-                            <a type="button" class="btn btn-danger" href="/admin/order/delete/${order.id}"
-                              onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                           </td>
                         </tr>
                       </c:forEach>
 
                     </tbody>
-                </div>
-                <!-- <jsp:include page="../layout/footer.jsp" /> -->
-              </main>
 
+                </div>
+                <a href="/admin/order" class="btn btn-success mt-3">Home</a>
+              </main>
+              <!-- <jsp:include page="../layout/footer.jsp" /> -->
             </div>
           </div>
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

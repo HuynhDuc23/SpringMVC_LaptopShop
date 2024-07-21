@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -34,6 +35,9 @@ public class User {
   @ManyToOne
   @JoinColumn(name = "role_id")
   private Role role;
+
+  @OneToOne(mappedBy = "user")
+  private Cart Cart;
 
   public List<Order> getOrders() {
     return orders;
@@ -124,6 +128,14 @@ public class User {
   public String toString() {
     return "User [id=" + id + ", email=" + email + ", password=" + password + ", fullName=" + fullName + ", address="
         + address + ", phone=" + phone + ", avatar=" + avatar + "]";
+  }
+
+  public Cart getCart() {
+    return Cart;
+  }
+
+  public void setCart(Cart cart) {
+    Cart = cart;
   }
 
 }
