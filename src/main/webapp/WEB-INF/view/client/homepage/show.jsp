@@ -46,6 +46,8 @@
           <!-- Spinner End -->
           <!--header-->
           <jsp:include page="../layout/header.jsp" />
+          <jsp:include page="../layout/banner.jsp" />
+
           <!-- Modal Search Start -->
           <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-fullscreen">
@@ -64,13 +66,6 @@
               </div>
             </div>
           </div>
-          <!-- Modal Search End -->
-          <!-- Banner Section Start -->
-          <!-- <jsp:include page="../layout/banner.jsp" /> -->
-          <!-- Banner Section End -->
-
-          <!-- <jsp:include page="../layout/feature.jsp" /> -->
-          <!-- Fruits Shop Start-->
           <div class="container-fluid fruite py-5">
             <div class="container py-5">
               <div class="tab-class text-center">
