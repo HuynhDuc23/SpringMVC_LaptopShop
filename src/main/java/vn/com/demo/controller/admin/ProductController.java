@@ -1,5 +1,8 @@
 package vn.com.demo.controller.admin;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
+import java.util.Optional;
+
 import jakarta.validation.Valid;
 
 @Controller
@@ -30,9 +35,22 @@ public class ProductController {
   }
 
   @GetMapping("/admin/product")
-  public String getProduct(Model model) {
-    List<Product> products = this.productService.listProducts();
-    model.addAttribute("products", products);
+  public String getProduct(Model model, @RequestParam("page") Optional<String> pageOptional) {
+    int pageResult = 1;
+    try {
+      if (pageOptional.isPresent()) {
+        pageResult = Integer.parseInt(pageOptional.get());
+      } else {
+        pageResult = 1;
+      }
+    } catch (Exception e) {
+    }
+    Pageable pageable = PageRequest.of(pageResult - 1, 5);
+    Page<Product> products = this.productService.listProducts(pageable);
+    List<Product> productLits = products.getContent();
+    model.addAttribute("products", productLits);
+    model.addAttribute("currentPage", pageResult);
+    model.addAttribute("totalPages", products.getTotalPages());
     return "admin/product/show";
   }
 

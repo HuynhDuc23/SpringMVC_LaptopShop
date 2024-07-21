@@ -52,7 +52,7 @@ public class OrderController {
   }
 
   @PostMapping("/admin/order/update")
-  public String postMethodName(@ModelAttribute("order") Order order) {
+  public String updateOrder(@ModelAttribute("order") Order order) {
     this.orderService.updateOrder(order);
     return "redirect:/admin/order";
   }
